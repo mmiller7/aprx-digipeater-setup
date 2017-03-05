@@ -15,7 +15,7 @@ fi
 
 #Install dependencies
 echo '**** Installing dependencies ****'
-apt-get -y install git build-essential soundmodem
+apt-get -y install git build-essential soundmodem iptables-persistent
 
 
 
@@ -48,13 +48,14 @@ mkdir -p $APRX_BUILD_DIR/init.d
 cp template $APRX_BUILD_DIR/init.d/aprx
 cd $APRX_BUILD_DIR/init.d
 sed -i 's|cmd=""|cmd="/sbin/aprx -i"|g' aprx
-sed -i 's/user=""/user="aprx"/g' aprx
+sed -i 's/user=""/user="root"/g' aprx
 sed -i 's/# Required-Start:    $remote_fs $syslog/# Required-Start:    $remote_fs $syslog soundmodem/g' aprx
 sed -i 's/# Provides:/# Provides: aprx/g' aprx
 sed -i 's/# Description:       Enable service provided by daemon./# Description:       Starts aprx APRS Digipeater & iGate daemon/g' aprx
 #echo '**** Installing aprx init.d ****'
 cp aprx /etc/init.d/
-useradd -r -s /sbin/nologin -M aprx
+# Raw socket access has to run as root :(
+#useradd -r -s /sbin/nologin -M aprx
 #adduser aprx audio
 
 
@@ -80,6 +81,12 @@ echo 'will first need to have configured the /etc/aprx.conf in'
 echo 'addition to /etc/ax25/soundmodem.conf before you can run them!'
 echo ''
 
+#Enter iptables rules so that soundmodem doesn't get broadcast traffic
+echo 'iptables rules:'
+echo 'iptables -A INPUT -i sm0 -p udp -j DROP'
+echo 'iptables -A OUTPUT -o sm0 -p udp -j DROP'
+echo 'iptables -A FORWARD -i sm0 -p udp -j DROP'
+echo 'netfilter-persistent save'
 
 
 #Done!
