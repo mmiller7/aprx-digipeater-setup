@@ -14,10 +14,10 @@ status_text="APRX on $(uname -m) $(uname -s) built with https://git.io/vHUCM con
 
 set -e
 
-#if [ "$(whoami)" != "root" ]; then
-#	echo "ERROR: This script be run as root!"
-#	exit 1
-#fi
+if [ "$(whoami)" != "root" ]; then
+	echo "ERROR: This script be run as root!"
+  exit 1
+fi
 
 echo ''
 
@@ -121,8 +121,6 @@ sed -i "s|^[\s]*beacon symbol[\s]*.*|beacon symbol \"I#\" \$myloc comment \"${st
 
 echo "Applying settings to $CONFIG_FILE22"
 sed -i "s/hwaddr=\"[^\"]*\"/hwaddr=\"$callsign\"/g" $CONFIG_FILE2
-
-exit
 
 echo "Checking for old configuration in /etc and backing up if found"
 cp -f /etc/$CONFIG_FILE /etc/${CONFIG_FILE}.old
