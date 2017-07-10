@@ -142,23 +142,22 @@ if [ "$enable_init_d" == "y" ] || [ "$enable_init_d" == "Y" ]
 then
    echo 'Setting rc.d soundmodem and aprx defaults'
    echo '********************************************************************'
-   echo '* It is recommended you try `debug_pymultimonaprs.sh` and verify   *'
-   echo '* packets are being received. If everything appears to be working, *'
-   echo '* you can then run `sudo service pymultimonaprs start` or wait     *'
-   echo '* until your next reboot to kick off the background service.       *'
+   echo '* It is recommended you monitor and test your configuration with   *'
+   echo '* a known working radio.  To start the services, you can kick them *'
+   echo '* off run `sudo soundmodem start` and `sudo service aprx start` or *'
+   echo '* wait until your next reboot to kick off the background service.  *'
    echo '********************************************************************'
    update-rc.d soundmodem defaults
    update-rc.d aprx defaults
 else
    echo 'Removing soundmodem and aprx scripts from rc.d'
+   echo '********************************************************************'
+   echo '* It is recommended you monitor and test your configuration with   *'
+   echo '* a known working radio.  To start the services, you can kick them *'
+   echo '* off run `sudo soundmodem start` and `sudo service aprx start`.   *'
+   echo '********************************************************************'
    update-rc.d -f soundmodem remove
    update-rc.d -f aprx remove
-   echo '********************************************************************'
-   echo '* It is recommended you try `debug_pymultimonaprs.sh` and verify   *'
-   echo '* packets are being received. Start-up is DISABLED, you will need  *'
-   echo '* to MANUALLY run `sudo service pymultimonaprs start` EVERY TIME   *'
-   echo '* you want to load the APRS iGate service.                         *'
-   echo '********************************************************************'
 fi
 
 

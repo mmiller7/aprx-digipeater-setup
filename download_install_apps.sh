@@ -83,12 +83,12 @@ echo 'addition to /etc/ax25/soundmodem.conf before you can run them!'
 echo ''
 
 #Enter iptables rules so that soundmodem doesn't get broadcast traffic
-echo 'iptables rules:'
+echo 'You also probably want these iptables rules and save command:'
 echo 'iptables -A INPUT -i sm0 -p udp -j DROP'
 echo 'iptables -A OUTPUT -o sm0 -p udp -j DROP'
 echo 'iptables -A FORWARD -i sm0 -p udp -j DROP'
 echo 'netfilter-persistent save'
-
+echo ''
 
 #Done!
 echo 'Install complete!'
