@@ -149,6 +149,8 @@ then
    echo '********************************************************************'
    update-rc.d soundmodem defaults
    update-rc.d aprx defaults
+   sudo systemctl enable soundmodem
+   sudo systemctl enable aprx
 else
    echo 'Removing soundmodem and aprx scripts from rc.d'
    echo '********************************************************************'
@@ -156,6 +158,8 @@ else
    echo '* a known working radio.  To start the services, you can kick them *'
    echo '* off run `sudo soundmodem start` and `sudo service aprx start`.   *'
    echo '********************************************************************'
+   sudo systemctl disable soundmodem
+   sudo systemctl disable aprx
    update-rc.d -f soundmodem remove
    update-rc.d -f aprx remove
 fi
