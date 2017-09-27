@@ -10,7 +10,7 @@ This will install the dependencies, compile the software, and install the softwa
 2) configure_aprx.sh
 This will guide you thru building the config files which should work for most configurations.  There is a very low possibility that you would be on a conflicting network with an IP address range 172.30.31.32-172.30.31.35 in which case you will need to manually change those addresses in /etc/ax25/soundmodem.conf after setup.
 
-
+---
 
 Here's some background on how I built this and what the scripts will help you automate if you want to do it manually:
 
