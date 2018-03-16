@@ -9,13 +9,13 @@
 
 /sbin/ifconfig | /bin/grep sm0 || (
         /bin/echo 'Network interface to soundmodem missing, restarting soundmodem and aprx . . .' | /usr/bin/wall
-        /usr/sbin/service soundmodoem restart
+        /usr/sbin/service soundmodem restart
         /usr/sbin/service aprx restart
 )
 
 /usr/sbin/service soundmodem status || (
         /bin/echo 'Service soundmodem failed, restarting soundmodem and aprx . . .' | /usr/bin/wall
-        /usr/sbin/service soundmodoem restart
+        /usr/sbin/service soundmodem restart
         /usr/sbin/service aprx restart
 )
 
