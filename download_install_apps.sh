@@ -15,7 +15,7 @@ fi
 
 #Install dependencies
 echo '**** Installing dependencies ****'
-apt-get -y install git build-essential soundmodem iptables-persistent
+apt-get -y install git build-essential soundmodem iptables-persistent checkinstall
 
 
 
@@ -33,7 +33,15 @@ echo '**** Building APRS iGate software ****'
 ./configure
 make
 echo '**** Installing APRS iGate software ****'
-make install
+version=`./aprx -h | grep version | awk '{ print $2 }'`
+echo "Attempting to build package aprx version $version"
+checkinstall -D --pkgname aprx --pkggroup aprx --provides aprx --pkgversion $version -y && (
+	echo "Installing newly built package"
+	dpkg -i aprx_*.deb
+) || (
+	echo "Failed to build package for install, falling back to basic make-install"
+	make install
+)
 ldconfig
 
 
